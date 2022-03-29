@@ -1,10 +1,5 @@
 <?php
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\MultipartStream;
-
 require 'vendor/autoload.php';
-
 $key = 'Bearer 8c5bbd20b3600ce91f5fadda3a668cf267f3562c76daa21d5bae0846eefaf0a2';
 
 /** create new project */
@@ -135,9 +130,8 @@ try {
 }*/
 
 
-
 /** upload videos and images to pai (end-point) */
-$endPointUrl = "https://upload.wistia.com";
+/*$endPointUrl = "https://upload.wistia.com";
 $fileData = curl_file_create('video1583207737.mp4','video/mp4','video');
 $objectData =
     [
@@ -156,6 +150,6 @@ curl_setopt($curlConnection, CURLOPT_POST,true);
 curl_setopt($curlConnection, CURLOPT_POSTFIELDS,$objectData);
 $response = curl_exec($curlConnection);
 dd($response);
-curl_close($curlConnection);
+curl_close($curlConnection);*/
 
 
