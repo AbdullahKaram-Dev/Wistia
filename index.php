@@ -1,5 +1,8 @@
 <?php
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\MultipartStream;
+
 require 'vendor/autoload.php';
 
 $key = 'Bearer 8c5bbd20b3600ce91f5fadda3a668cf267f3562c76daa21d5bae0846eefaf0a2';
@@ -112,9 +115,9 @@ $sendRequestAndGetResponse = $httpClient->get("https://api.wistia.com/v1/medias/
 $finalResponse = json_decode($sendRequestAndGetResponse->getBody(), true);
 dd($finalResponse);*/
 
-/** upload file media to specific project by hashed id project */
+/** upload file media by url only(image) to specific project by hashed id project */
 /*$request = [
-    'url' => 'https://avatars.githubusercontent.com/u/3670578?v=4',
+    'url' => 'https://www.youtube.com/watch?v=jhFDyDgMVUI',
     'api_password' => '8c5bbd20b3600ce91f5fadda3a668cf267f3562c76daa21d5bae0846eefaf0a2',
     'project_id' => '74io6qlc8d',
     'name' => 'new new name',
@@ -130,4 +133,29 @@ try {
 }catch (Exception $exception) {
     dd($exception->getMessage());
 }*/
+
+
+
+/** upload videos and images to pai (end-point) */
+$endPointUrl = "https://upload.wistia.com";
+$fileData = curl_file_create('video1583207737.mp4','video/mp4','video');
+$objectData =
+    [
+    'file' => $fileData,
+    'api_password' => '8c5bbd20b3600ce91f5fadda3a668cf267f3562c76daa21d5bae0846eefaf0a2',
+    'project_id' => '74io6qlc8d',
+    'name' => 'video',
+    'description' => 'new new media description'
+];
+
+$curlConnection = curl_init();
+curl_setopt($curlConnection, CURLOPT_URL,$endPointUrl);
+curl_setopt($curlConnection, CURLOPT_HTTPHEADER,array('Content-Type: multipart/form-data'));
+curl_setopt($curlConnection, CURLOPT_RETURNTRANSFER,true);
+curl_setopt($curlConnection, CURLOPT_POST,true);
+curl_setopt($curlConnection, CURLOPT_POSTFIELDS,$objectData);
+$response = curl_exec($curlConnection);
+dd($response);
+curl_close($curlConnection);
+
 
